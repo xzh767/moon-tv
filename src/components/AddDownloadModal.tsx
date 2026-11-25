@@ -86,6 +86,7 @@ const AddDownloadModal = ({
   const [modeSupport, setModeSupport] = useState({
     serviceWorker: false,
     fileSystem: false,
+    opfs: false,
     blob: true, // Blob模式总是支持的
   });
 
@@ -100,10 +101,12 @@ const AddDownloadModal = ({
         .then(([fallback, streamSaver]) => {
           const fileSystemSupported = fallback.supportsFileSystemAccess();
           const serviceWorkerSupported = streamSaver.isStreamSaverSupported();
+          const opfsSupported = fallback.supportsOpfs();
 
           setModeSupport({
             serviceWorker: serviceWorkerSupported,
             fileSystem: fileSystemSupported,
+            opfs: opfsSupported,
             blob: true,
           });
         })
@@ -695,6 +698,51 @@ const AddDownloadModal = ({
                   </button>
                 </div>
               )}
+
+              <label
+                className={`flex items-center gap-2 ${
+                  !modeSupport.opfs ? 'opacity-60' : 'cursor-pointer'
+                }`}
+              >
+                <input
+                  type='radio'
+                  name='streamMode'
+                  value='opfs'
+                  checked={streamMode === 'opfs'}
+                  onChange={() => setStreamMode('opfs')}
+                  disabled={!modeSupport.opfs}
+                  className='w-4 h-4 disabled:cursor-not-allowed'
+                />
+                <div className='text-sm flex-1'>
+                  <div className='flex items-center gap-1'>
+                    {modeSupport.opfs ? (
+                      <span className='text-green-500'>✓</span>
+                    ) : (
+                      <span className='text-red-500'>✗</span>
+                    )}
+                    <span
+                      className={`font-medium ${
+                        !modeSupport.opfs
+                          ? 'text-gray-400 dark:text-gray-500'
+                          : 'text-gray-700 dark:text-gray-300'
+                      }`}
+                    >
+                      OPFS 站点存储
+                    </span>
+                  </div>
+                  <div
+                    className={`text-xs ml-4 ${
+                      !modeSupport.opfs
+                        ? 'text-gray-400 dark:text-gray-500'
+                        : 'text-gray-500 dark:text-gray-400'
+                    }`}
+                  >
+                    {modeSupport.opfs
+                      ? '无需选择目录，自动保存到浏览器站点存储（PWA/移动端推荐）'
+                      : '不支持：需要支持 OPFS 的浏览器'}
+                  </div>
+                </div>
+              </label>
             </div>
           </div>
 
