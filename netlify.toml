@@ -1,0 +1,15 @@
+[build]
+  command = "pnpm install && pnpm run build"
+  publish = ".next"
+  functions = "functions"
+
+[build.environment]
+  NODE_VERSION = "18"
+
+# Next.js API routes → Netlify serverless functions
+[functions]
+  directory = ".next/server/functions"
+
+# Edge runtime for image-proxy
+[functions."image-proxy"]
+  external_node_modules = ["*"]
