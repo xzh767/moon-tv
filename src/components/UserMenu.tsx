@@ -49,8 +49,8 @@ export const UserMenu: React.FC = () => {
   const [autoHideNav, setAutoHideNav] = useState(false);
   const [doubanProxyUrl, setDoubanProxyUrl] = useState('');
 
-  const [doubanDataSource, setDoubanDataSource] = useState('direct');
-  const [doubanImageProxyType, setDoubanImageProxyType] = useState('direct');
+  const [doubanDataSource, setDoubanDataSource] = useState('cmliussss-cdn-ali');
+  const [doubanImageProxyType, setDoubanImageProxyType] = useState('cmliussss-cdn-ali');
   const [doubanImageProxyUrl, setDoubanImageProxyUrl] = useState('');
   const [isDoubanDropdownOpen, setIsDoubanDropdownOpen] = useState(false);
   const [isDoubanImageProxyDropdownOpen, setIsDoubanImageProxyDropdownOpen] =
@@ -68,7 +68,7 @@ export const UserMenu: React.FC = () => {
     }
     return 3; // 默认重试3次
   });
-  const [enablePreferBestSource, setEnablePreferBestSource] = useState(false);
+  const [enablePreferBestSource, setEnablePreferBestSource] = useState(true);
   const [preferredDanmakuPlatform, setPreferredDanmakuPlatform] =
     useState('bilibili1');
   const [isDanmakuPlatformDropdownOpen, setIsDanmakuPlatformDropdownOpen] =
